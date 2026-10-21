@@ -2,7 +2,6 @@
 
 A responsive weather app built with React. Search for any city to see the current weather and a 5-day forecast, with a background that changes to match the conditions and a light/dark theme.
 
-**Live demo:** <your-vercel-link>
 
 ![Light mode](screenshots/light.png)
 ![Dark mode](screenshots/dark.png)
@@ -13,7 +12,7 @@ A responsive weather app built with React. Search for any city to see the curren
 - 5-day temperature forecast chart (Recharts)
 - Background image that changes with the weather (clear, clouds, rain, storm, snow)
 - Light/dark theme, remembered between visits
-- Loading and error states (e.g. city not found)
+- Loading and error states (e.g. city x not found)
 
 ## Tech stack
 
@@ -43,7 +42,11 @@ Get a free key at [openweathermap.org](https://openweathermap.org/api).
 
 ## What I learned
 
-<Write 3-4 bullets in your own words. Ideas: lifting state up; why a try/catch/finally is needed around async calls; the CSS specificity and inheritance issue that broke dark mode at first; why a stacking context (`isolation: isolate`) was needed for the background layer.>
+- **Async state handling:** fetching data needs three states (data, loading, error). I used `try/catch/finally` so the loading state always resets, and `Promise.all` to fetch the current weather and the forecast in parallel.
+- **Transforming API data:** the forecast endpoint returns a reading every 3 hours, so I filtered the noon reading of each day to get one clean data point per day for the chart.
+- **CSS variables for theming:** a light/dark theme is just a different set of variable values. I first put `data-theme` on a wrapper while the background was on `body`, and nothing changed because variables only inherit downward. Moving the background onto the same element fixed it.
+- **Layering and stacking contexts:** the weather background is a fixed layer behind the content. It needed `isolation: isolate` on the app wrapper, otherwise it rendered behind the wrapper's own background.
+- **Third-party components and styling:** Recharts sets inline styles on its tooltip, so CSS classes could not override them. I passed the colors as props using CSS variables so the chart follows the theme.
 
 ## Possible improvements
 
