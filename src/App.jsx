@@ -6,6 +6,7 @@ import WeatherCard from "./components/WeatherCard";
 import ForecastChart from "./components/ForecastChart";
 import { getInitialTheme } from "./utils/theme";
 import { getWeatherKey } from "./utils/weatherTheme";
+import WeatherBackground from "./components/WeatherBackground";
 
 function App() {
   const [weatherData, setWeatherData] = useState(null);
@@ -25,8 +26,6 @@ function App() {
     }
   }, [theme]);
   const toggleTheme = () => {
-    console.log(theme);
-
     setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
   };
   const handleInputChange = (value) => {
@@ -56,7 +55,7 @@ function App() {
   };
   return (
     <div className="app" data-theme={theme}>
-      <div className={`weather-bg weather-${weatherKey}`} />
+      <WeatherBackground weatherKey={weatherKey} />
       <main className="container">
         <header className="header card">
           <h1>Weather dashboard </h1>
